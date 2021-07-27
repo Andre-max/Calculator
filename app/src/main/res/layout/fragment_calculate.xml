@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="androidx.lifecycle.LiveData" />
+
+        <import type="com.octagon_technologies.smart_calculator.model.KeyColor" />
+
+        <import type="com.octagon_technologies.smart_calculator.model.Theme" />
+
+        <import type="com.octagon_technologies.smart_calculator.presentation.ui.calculate.CalculateViewModel" />
+
+        <variable
+            name="viewModel"
+            type="CalculateViewModel" />
+
+        <variable
+            name="theme"
+            type="LiveData&lt;Theme&gt;" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
+        getBackgroundColor="@{theme}"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:background="@android:color/white"
+        tools:context=".presentation.ui.calculate">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/theme_layout"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_34sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:background="@drawable/circular_background"
+                android:padding="@dimen/_4sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="HardcodedText">
+
+                <ImageView
+                    android:id="@+id/lightModeBtn"
+                    android:layout_width="@dimen/_32sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:background="@color/light_black"
+                    android:contentDescription="@string/turn_light_on"
+                    android:onClick="@{() -> viewModel.changeTheme(theme)}"
+                    android:src="@drawable/sun"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@android:color/white"
+                    app:updateTheme="@{theme == Theme.Light}" />
+
+                <ImageView
+                    android:id="@+id/darkModeBtn"
+                    android:layout_width="@dimen/_32sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:contentDescription="@string/turn_night_mode"
+                    android:onClick="@{() -> viewModel.changeTheme(theme)}"
+                    android:src="@drawable/moon"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/lightModeBtn"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:updateTheme="@{theme == Theme.Dark}" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/mini_equation"
+                getTextColor="@{theme}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_32sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_marginRight="@dimen/_8sdp"
+                android:fontFamily="@font/cabin_medium"
+                android:text="@{viewModel.formerExpression}"
+                android:textSize="@dimen/_15ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/theme_layout"
+                tools:text="40 * 52"
+                tools:textColor="@color/dark_black" />
+
+            <TextView
+                android:id="@+id/result"
+                getTextColor="@{theme}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:layout_marginRight="@dimen/_12sdp"
+                android:fontFamily="@font/cabin_semibold"
+                android:text="@{viewModel.expression}"
+                android:textSize="@dimen/_20ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mini_equation"
+                tools:text="12,000"
+                tools:textColor="@color/dark_black" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/bottom_tab"
+                getLighterBackgroundShade="@{theme}"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/continue_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/continue_text"
+                    app:backgroundTint="@android:color/transparent"
+                    app:icon="@drawable/sun"
+                    app:iconGravity="textTop"
+                    app:iconPadding="@dimen/_4sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/clear_btn"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/clear_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/clear"
+                    app:backgroundTint="@android:color/transparent"
+                    app:icon="@drawable/ic_delete"
+                    app:iconGravity="textTop"
+                    app:iconPadding="@dimen/_4sdp"
+                    app:layout_constraintStart_toEndOf="@+id/continue_btn"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/history_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                tools:itemCount="10"
+                tools:listitem="@layout/each_history_group"
+                android:layout_marginTop="@dimen/_24sdp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/result" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/keypad"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/_24sdp"
+                android:background="@drawable/top_cornered_background"
+                android:padding="@dimen/_8sdp"
+                app:behavior_hideable="true"
+                app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+                android:layout_gravity="bottom"
+                tools:visibility="gone">
+
+                <View
+                    android:id="@+id/calculate_top_line"
+                    getLighterBackgroundShade="@{theme}"
+                    android:layout_width="@dimen/_28sdp"
+                    android:layout_height="@dimen/_2sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:background="@color/light_black" />
+
+                <TableLayout
+                    android:id="@+id/table_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/calculate_top_line">
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.octagon_technologies.smart_calculator.presentation.views.KeyView
+                            android:id="@+id/key_C"
+                            android:layout_width="@dimen/_70sdp"
+                            android:layout_height="@dimen/_70sdp"
+                            app:keyColor="@{KeyColor.BLUE}"
+                            app:keyText="@{`C`}"
+                            app:keyTheme="@{theme}"
+                            tools:ignore="HardcodedText" />
+
+                        <com.octagon_technologies.smart_calculator.presentation.views.KeyView
+                            android:id="@+id/key_negative"
+                            android:layout_width="@dimen/_70sdp"
+                            android:layout_height="@dimen/_70sdp"
+                            app:keyColor="@{KeyColor.BLUE}"
+                            app:keyText="@{`+/-`}"
+                            app:keyTheme="@{theme}"
+                            tools:ignore="HardcodedText" />
+
+                        <com.octagon_technologies.smart_calculator.presentation.views.KeyView
+                            android:id="@+id/key_go_back"
+                            android:layout_width="@dimen/_70sdp"
+                            android:layout_height="@dimen/_70sdp"
+                            app:keyColor="@{KeyColor.BLUE}"
+                            app:keyText="@{`&lt;-`}"
+                            app:keyTheme="@{theme}"
+                            tools:ignore="HardcodedText" />
+
+                        <com.octagon_technologies.smart_calculator.presentation.views.KeyView
+                            android:id="@+id/key_divide"
+                            android:layout_width="@dimen/_70sdp"
+                            android:layout_height="@dimen/_70sdp"
+                            app:keyColor="@{KeyColor.RED}"
+                            app:keyText="@{`÷`}"
+                            app:keyTheme="@{theme}"
+                            tools:ignore="HardcodedText" />
+                    </TableRow>
+
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.octagon_technologies.smart_calculator.presentation.views.KeyView
+                            android:id="@+id/key_7"
+                            android:layout_width="@dimen/_70sdp"
+                            android:layout_height="@dimen/_70sdp"
+                            app:keyColor="@{KeyColor.NORMAL}"
+                            app:keyText="@{`7`}"
+                            app:keyTheme="@{theme}"
+                            tools:ignore="HardcodedText" />
+
+                        <com.octagon_technologies.smart_calculator.presentation.views.KeyView
+                            android:id="@+id/key_8"
+                            android:layout_width="@dimen/_70sdp"
+                            android:layout_height="@dimen/_70sdp"
+                            app:keyColor="@{KeyColor.NORMAL}"
+                            app:keyText="@{`8`}"
+                            app:keyTheme="@{theme}"
+                            tools:ignore="HardcodedText" />
+
+                        <com.octagon_technologies.smart_calculator.presentation.views.KeyView
+                            android:id="@+id/key_9"
+                            android:layout_width="@dimen/_70sdp"
+                            android:layout_height="@dimen/_70sdp"
+                            app:keyColor="@{KeyColor.NORMAL}"
+                            app:keyText="@{`9`}"
+                            app:keyTheme="@{theme}"
+                            tools:ignore="HardcodedText" />
+
+                        <com.octagon_technologies.smart_calculator.presentation.views.KeyView
+                            android:id="@+id/key_multiply"
+                            android:layout_width="@dimen/_70sdp"
+                            android:layout_height="@dimen/_70sdp"
+                            app:keyColor="@{KeyColor.RED}"
+                            app:keyText="@{`x`}"
+                            app:keyTheme="@{theme}"
+                            tools:ignore="HardcodedText" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.octagon_technologies.smart_calculator.presentation.views.KeyView
+                            android:id="@+id/key_4"
+                            android:layout_width="@dimen/_70sdp"
+                            android:layout_height="@dimen/_70sdp"
+                            app:keyColor="@{KeyColor.NORMAL}"
+                            app:keyText="@{`4`}"
+                            app:keyTheme="@{theme}"
+                            tools:ignore="HardcodedText" />
+
+                        <com.octagon_technologies.smart_calculator.presentation.views.KeyView
+                            android:id="@+id/key_5"
+                            android:layout_width="@dimen/_70sdp"
+                            android:layout_height="@dimen/_70sdp"
+                            app:keyColor="@{KeyColor.NORMAL}"
+                            app:keyText="@{`5`}"
+                            app:keyTheme="@{theme}"
+                            tools:ignore="HardcodedText" />
+
+                        <com.octagon_technologies.smart_calculator.presentation.views.KeyView
+                            android:id="@+id/key_6"
+                            android:layout_width="@dimen/_70sdp"
+                            android:layout_height="@dimen/_70sdp"
+                            app:keyColor="@{KeyColor.NORMAL}"
+                            app:keyText="@{`6`}"
+                            app:keyTheme="@{theme}"
+                            tools:ignore="HardcodedText" />
+
+                        <com.octagon_technologies.smart_calculator.presentation.views.KeyView
+                            android:id="@+id/key_minus"
+                            android:layout_width="@dimen/_70sdp"
+                            android:layout_height="@dimen/_70sdp"
+                            app:keyColor="@{KeyColor.RED}"
+                            app:keyText="@{`_`}"
+                            app:keyTheme="@{theme}"
+                            tools:ignore="HardcodedText" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.octagon_technologies.smart_calculator.presentation.views.KeyView
+                            android:id="@+id/key_1"
+                            android:layout_width="@dimen/_70sdp"
+                            android:layout_height="@dimen/_70sdp"
+                            app:keyColor="@{KeyColor.NORMAL}"
+                            app:keyText="@{`1`}"
+                            app:keyTheme="@{theme}"
+                            tools:ignore="HardcodedText" />
+
+                        <com.octagon_technologies.smart_calculator.presentation.views.KeyView
+                            android:id="@+id/key_2"
+                            android:layout_width="@dimen/_70sdp"
+                            android:layout_height="@dimen/_70sdp"
+                            app:keyColor="@{KeyColor.NORMAL}"
+                            app:keyText="@{`2`}"
+                            app:keyTheme="@{theme}"
+                            tools:ignore="HardcodedText" />
+
+                        <com.octagon_technologies.smart_calculator.presentation.views.KeyView
+                            android:id="@+id/key_3"
+                            android:layout_width="@dimen/_70sdp"
+                            android:layout_height="@dimen/_70sdp"
+                            app:keyColor="@{KeyColor.NORMAL}"
+                            app:keyText="@{`3`}"
+                            app:keyTheme="@{theme}"
+                            tools:ignore="HardcodedText" />
+
+                        <com.octagon_technologies.smart_calculator.presentation.views.KeyView
+                            android:id="@+id/key_add"
+                            android:layout_width="@dimen/_70sdp"
+                            android:layout_height="@dimen/_70sdp"
+                            app:keyColor="@{KeyColor.RED}"
+                            app:keyText="@{`+`}"
+                            app:keyTheme="@{theme}"
+                            tools:ignore="HardcodedText" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.octagon_technologies.smart_calculator.presentation.views.KeyView
+                            android:id="@+id/key_0"
+                            android:layout_width="@dimen/_70sdp"
+                            android:layout_height="@dimen/_70sdp"
+                            app:keyColor="@{KeyColor.NORMAL}"
+                            app:keyText="@{`0`}"
+                            app:keyTheme="@{theme}"
+                            tools:ignore="HardcodedText" />
+
+                        <com.octagon_technologies.smart_calculator.presentation.views.KeyView
+                            android:id="@+id/key_00"
+                            android:layout_width="@dimen/_70sdp"
+                            android:layout_height="@dimen/_70sdp"
+                            app:keyColor="@{KeyColor.NORMAL}"
+                            app:keyText="@{`00`}"
+                            app:keyTheme="@{theme}"
+                            tools:ignore="HardcodedText" />
+
+                        <com.octagon_technologies.smart_calculator.presentation.views.KeyView
+                            android:id="@+id/key_decimal"
+                            android:layout_width="@dimen/_70sdp"
+                            android:layout_height="@dimen/_70sdp"
+                            app:keyColor="@{KeyColor.NORMAL}"
+                            app:keyText="@{`.`}"
+                            app:keyTheme="@{theme}"
+                            tools:ignore="HardcodedText" />
+
+                        <com.octagon_technologies.smart_calculator.presentation.views.KeyView
+                            android:id="@+id/key_equal"
+                            android:layout_width="@dimen/_70sdp"
+                            android:layout_height="@dimen/_70sdp"
+                            app:keyColor="@{KeyColor.RED}"
+                            app:keyText="@{`=`}"
+                            app:keyTheme="@{theme}"
+                            tools:ignore="HardcodedText" />
+                    </TableRow>
+                </TableLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

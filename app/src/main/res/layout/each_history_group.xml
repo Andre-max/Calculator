@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="androidx.lifecycle.LiveData" />
+
+        <import type="com.octagon_technologies.smart_calculator.model.MathExpression"/>
+        <import type="com.octagon_technologies.smart_calculator.model.Theme" />
+
+        <variable
+            name="theme"
+            type="LiveData&lt;Theme&gt;" />
+
+        <variable
+            name="mathExpression"
+            type="MathExpression" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/_6sdp"
+        android:layout_marginEnd="@dimen/_6sdp"
+        tools:background="@android:color/white">
+
+        <View
+            android:id="@+id/divider"
+            getLighterBackgroundShade="@{theme}"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_1sdp"
+            tools:textColor="@color/grey"
+            android:layout_marginTop="@dimen/_6sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/history_result" />
+
+        <TextView
+            android:id="@+id/history_equation"
+            android:layout_width="wrap_content"
+            tools:text="10,000+40,000"
+            android:fontFamily="@font/cabin_medium"
+            tools:textColor="@color/light_black"
+            android:text="@{mathExpression.equation}"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:layout_marginRight="@dimen/_8sdp"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            getLighterBackgroundShade="@{theme}"/>
+
+        <TextView
+            android:id="@+id/history_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:text="@{mathExpression.result}"
+            app:layout_constraintTop_toBottomOf="@id/history_equation"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="50,000"
+            android:fontFamily="@font/cabin_medium"
+            tools:textColor="@color/dark_black"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:layout_marginRight="@dimen/_8sdp"
+            android:textSize="@dimen/_14ssp"
+            getTextColor="@{theme}"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

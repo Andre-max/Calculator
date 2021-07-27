@@ -25,7 +25,7 @@
 object Versions {
 
     //Version codes for all the libraries
-    const val kotlin = "1.4.30"
+    const val kotlin = "1.5.10"
     const val buildToolsVersion = "4.1.1"
     const val appCompat = "1.3.0-rc01"
     const val constraintLayout = "2.1.0-beta02"
@@ -52,9 +52,14 @@ object Versions {
     const val editCodeView = "1.0.6"
     const val dexter = "6.2.2"
     const val glide = "4.11.0"
+    const val room = "2.2.6"
     const val scalableDimen = "1.0.6"
     const val cameraView = "2.6.4"
     const val swipeToRefresh = "1.1.0"
+    const val moshi = "1.11.0"
+    const val mathLibrary = "0.4.8"
+    const val coordinatorLayout = "1.1.0"
+    const val dataStore = "1.0.0-alpha02"
 
     //Version codes for all the JVM test libraries
     const val junit4 = "4.13.2"
@@ -158,15 +163,26 @@ object Libraries {
     // Recyclerview Adapter
     const val groupie = "com.github.lisawray.groupie:groupie:${Versions.groupie}"
     const val groupieViewBinding = "com.github.lisawray.groupie:groupie-viewbinding:${Versions.groupie}"
+    const val groupieDataBinding = "com.github.lisawray.groupie:groupie-databinding:${Versions.groupie}"
 
     // Scalable dimensions
     const val ssp = "com.intuit.ssp:ssp-android:${Versions.scalableDimen}"
     const val sdp = "com.intuit.sdp:sdp-android:${Versions.scalableDimen}"
 
+    // Room and Lifecycle dependencies
+    const val room = "androidx.room:room-runtime:${Versions.room}"
+    const val roomKtx = "androidx.room:room-ktx:${Versions.room}"
+
     // Utility
+    const val moshi = "com.squareup.moshi:moshi:${Versions.moshi}"
     const val kotlinReflect = "org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlin}"
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
     const val dexter = "com.karumi:dexter:${Versions.dexter}"
+    const val mathLibrary = "net.objecthunter:exp4j:${Versions.mathLibrary}"
+    const val coordinatorLayout = "androidx.coordinatorlayout:coordinatorlayout:${Versions.coordinatorLayout}"
+const val dataStore = "androidx.datastore:datastore-preferences:${Versions.dataStore}"
+
+
 }
 
 object TestLibraries {
@@ -195,12 +211,14 @@ object TestLibraries {
 
 object KaptLibraries {
     const val glide = "com.github.bumptech.glide:compiler:${Versions.glide}"
+    const val room = "androidx.room:room-compiler:${Versions.room}"
+    const val moshi = "com.squareup.moshi:moshi-kotlin-codegen:${Versions.moshi}"
     const val hilt = "com.google.dagger:hilt-compiler:${Versions.hilt}"
     const val hiltViewModel = "androidx.hilt:hilt-compiler:${Versions.androidXHiltCompiler}"
 }
 
 object AndroidSdk {
-    const val minSdkVersion = 17
+    const val minSdkVersion = 16
     const val compileSdkVersion = 30
     const val targetSdkVersion = compileSdkVersion
     const val versionCode = 1

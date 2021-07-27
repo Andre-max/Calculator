@@ -27,46 +27,34 @@ plugins {
     id(BuildPlugins.ktlintPlugin) version Versions.ktlint
     id(BuildPlugins.detektPlugin) version Versions.detekt
     id(BuildPlugins.spotlessPlugin) version Versions.spotless
-    id(BuildPlugins.androidLibrary) apply false
-    id(BuildPlugins.androidApplication) apply false
-    id(BuildPlugins.kotlinAndroid) apply false
     id(BuildPlugins.dokkaPlugin) version Versions.dokka
-    id(BuildPlugins.gradleVersionsPlugin) version Versions.gradleVersionsPlugin
 }
 
 buildscript {
-    val gradleVersion by extra("4.2.0")
-    val kotlinVersion by extra("1.4.32")
-    val jacocoVersion by extra("0.2")
-    val gmsVersion by extra("4.3.5")
-
     repositories {
         google()
-        jcenter()
         mavenCentral()
+        maven("https://dl.bintray.com/kotlin/kotlin-eap")
     }
 
     dependencies {
-        classpath("com.android.tools.build:gradle:$gradleVersion")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
-        classpath("com.hiya:jacoco-android:$jacocoVersion")
+        classpath("com.android.tools.build:gradle:4.2.2")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10")
+        classpath("com.hiya:jacoco-android:0.2")
 
-//         Add the Crashlytics Gradle plugin.
-        classpath("com.google.gms:google-services:$gmsVersion")
+        classpath("com.google.gms:google-services:4.3.8")
+        classpath("com.google.dagger:hilt-android-gradle-plugin:${Versions.hilt}")
         classpath("com.google.firebase:firebase-crashlytics-gradle:${Versions.crashlytics}")
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.safeArgs}")
     }
 }
 
 allprojects {
-
     repositories {
         google()
-        gradlePluginPortal()
-        jcenter()
         mavenCentral()
         maven(url = "https://jitpack.io")
-        maven(url = "https://dl.bintray.com/kotlin/kotlin-eap")
+        maven("https://dl.bintray.com/kotlin/kotlin-eap")
     }
 
     apply(plugin = BuildPlugins.dokkaPlugin)
@@ -78,26 +66,6 @@ allprojects {
         filter {
             exclude { element -> element.file.path.contains("generated/") }
         }
-    }
-}
-
-subprojects {
-
-    repositories {
-        google()
-        gradlePluginPortal()
-        jcenter()
-        mavenCentral()
-        maven(url = "https://jitpack.io")
-        maven(url = "https://dl.bintray.com/kotlin/kotlin-eap")
-    }
-
-    // Address https://github.com/gradle/gradle/issues/4823: Force parent project evaluation before sub-project evaluation for Kotlin build scripts
-    if (gradle.startParameter.isConfigureOnDemand
-        && buildscript.sourceFile?.extension?.toLowerCase() == "kts"
-        && parent != rootProject) {
-        generateSequence(parent) { project -> project.parent.takeIf { it != rootProject } }
-            .forEach { evaluationDependsOn(it.path) }
     }
 
     apply(plugin = BuildPlugins.detektPlugin)
@@ -117,7 +85,3 @@ subprojects {
         }
     }
 }
-//
-//tasks.register("clean", Delete::class) {
-//    delete(rootProject.buildDir)
-//}

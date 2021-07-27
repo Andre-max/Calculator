@@ -72,7 +72,16 @@ fun DependencyHandler.injectHilt() {
     kaptAndroidTest(KaptLibraries.hilt)
 }
 
-fun DependencyHandler.injectCommonFirebase() {
+fun DependencyHandler.injectRoom() {
+    implementation(Libraries.room)
+    implementation(Libraries.roomKtx)
+    kapt(KaptLibraries.room)
+
+//    implementation(Libraries.moshi)
+//    kapt(KaptLibraries.moshi)
+}
+
+fun DependencyHandler.injectFirebase() {
     implementation(platform(Libraries.firebaseBOM))
     implementation(Libraries.firebaseAuth)
     implementation(Libraries.firebaseDatabase)

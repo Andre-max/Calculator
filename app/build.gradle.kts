@@ -33,6 +33,7 @@ plugins {
     id(BuildPlugins.googleServices)
     id(BuildPlugins.firebaseCrashlytics)
     id(BuildPlugins.safeArgs)
+    id(BuildPlugins.hilt)
 }
 
 jacoco {
@@ -43,11 +44,11 @@ android {
     compileSdkVersion(AndroidSdk.compileSdkVersion)
     buildToolsVersion(AndroidSdk.buildToolsVersion)
 
-    buildFeatures.dataBinding = true
     buildFeatures.viewBinding = true
+    buildFeatures.dataBinding = true
 
     defaultConfig {
-        applicationId = "com.andre_max.default_gradle_plugins"
+        applicationId = "com.octagon_technologies.smart_calculator"
         minSdkVersion(AndroidSdk.minSdkVersion)
         targetSdkVersion(AndroidSdk.targetSdkVersion)
         versionCode = AndroidSdk.versionCode
@@ -57,7 +58,12 @@ android {
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled = true
 
-//        manifestPlaceholders["manifest_key"] = manifestValue
+//        javaCompileOptions {
+//            annotationProcessorOptions {
+//                arguments = arguments + mapOf("room.incremental" to "true")
+//                arguments["room.schemaLocation"] += "$projectDir/schemas"
+//            }
+//        }
     }
 
     testOptions {
@@ -79,11 +85,6 @@ android {
     }
 
     buildTypes {
-        forEach {
-            // Api Key
-//            it.buildConfigField("String", "API_KEY", "\"$apiKey\"")
-        }
-
         getByName("release") {
             isMinifyEnabled = true
             isShrinkResources = true
@@ -97,17 +98,26 @@ android {
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.21")
     injectAndroidCore()
     injectViewModel()
     injectCoroutines()
+    injectRoom()
+    injectHilt()
     injectCommonJVMTest()
     injectCommonAndroidTest()
 
     implementation(Libraries.glide)
     kapt(KaptLibraries.glide)
 
-    implementation(Libraries.groupie)
-    implementation(Libraries.groupieViewBinding)
+    implementation(platform(Libraries.firebaseBOM))
+    implementation(Libraries.firebaseCrashlytics)
 
+    implementation(Libraries.groupie)
+    implementation(Libraries.groupieDataBinding)
+    
     implementation(Libraries.dexter)
+    implementation(Libraries.dataStore)
+    implementation(Libraries.mathLibrary)
+    implementation(Libraries.coordinatorLayout)
 }

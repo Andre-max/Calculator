@@ -1,6 +1,8 @@
 <resources>
-    <string name="app_name">DefaultGradlePlugins</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="app_name">Smart Calculator</string>
+    <string name="c">C</string>
+    <string name="continue_text">Continue</string>
+    <string name="clear">Clear</string>
+    <string name="turn_light_on">Turn on light mode</string>
+    <string name="turn_night_mode">Turn on night mode</string>
 </resources>

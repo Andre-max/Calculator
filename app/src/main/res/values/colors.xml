@@ -7,4 +7,14 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="grey">#F3F3F3</color>
+
+    <color name="light_black">#373737</color>
+    <color name="dark_black">#191919</color>
+
+    <color name="light_blue">#225EF6</color>
+<!--    Color used in app icon and logo-->
+    <color name="app_blue">#1389c9</color>
+
+    <color name="light_red">#E62C2C</color>
 </resources>
